@@ -46,10 +46,17 @@ main {
   }
 }
 
-.cat-image-container {
+.cat-container {
   height: 225px;
   width: 225px;
   position: relative;
+  cursor: pointer; 
+  transition: 0.3s;
+}
+
+.cat-container:hover {
+  transform: scale(1.1);
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.24);
 }
 
 .cat-image {

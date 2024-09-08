@@ -32,7 +32,7 @@ export default function Cats() {
             const {url} = cat
 
             return(
-              <div className="cat-image-container">
+              <div className="cat-container">
                 <img src={url} alt="cat" className="cat-image"/>
                 <img src={heart} alt="heart" className="heart-image"/>
               </div>
