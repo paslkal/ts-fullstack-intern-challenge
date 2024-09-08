@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './styles/Header.css'
+import { Link } from "react-router-dom"
 
 type active = 'all-cats' | 'liked-cats'
 
@@ -13,21 +14,21 @@ export default function Header() {
   return (
     <header>
       <nav>
-        <a 
-          href="#" 
+        <Link 
+          to=''
           className={active === 'all-cats' ? 'active' : 'not-active'}
           onClick={() => handleClick('all-cats')}
         >
           Все котики
-        </a>
+        </Link>
         
-        <a 
-          href="#" 
+        <Link 
+          to='liked_cats' 
           className={active === 'liked-cats' ? 'active' : 'not-active'}
           onClick={() => handleClick('liked-cats')}
         >
           Любимые котики
-        </a>
+        </Link>
       </nav>
     </header>
   )
