@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import './styles/Cats.css'
+import heart from './assets/heart.svg'
 
 interface Cat{
   id: string,
@@ -31,8 +32,9 @@ export default function Cats() {
             const {url} = cat
 
             return(
-              <div className="image-container">
-                <img src={url} alt="cat-image" />
+              <div className="cat-image-container">
+                <img src={url} alt="cat" className="cat-image"/>
+                <img src={heart} alt="heart" className="heart-image"/>
               </div>
             )
           })
