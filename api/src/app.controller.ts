@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, HttpException, HttpCode, Delete, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Like } from './interfaces/like.interface';
+import { User } from './interfaces/user.interface'; 
 
 @Controller()
 export class AppController {
@@ -31,6 +32,12 @@ export class AppController {
   deleteLike(@Param('cat_id') cat_id: string) {
     return cat_id
   }
+
+  @HttpCode(201)
+  @Post('user') 
+  addUser(@Body() user: User) {
+    return user
+  } 
 }
 
 function isLike(obj: any): obj is Like {
