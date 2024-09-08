@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, HttpException, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpException, HttpCode, Delete, Param } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Like } from './types';
 
@@ -24,6 +24,11 @@ export class AppController {
       throw new HttpException('Invalid Input', 405)
     }
     return like
+  }
+
+  @Delete('/likes/:cat_id')
+  deleteLike(@Param('cat_id') cat_id: string) {
+    return cat_id
   }
 }
 
