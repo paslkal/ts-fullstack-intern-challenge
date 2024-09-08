@@ -36,6 +36,10 @@ export class AppController {
   @HttpCode(201)
   @Post('user') 
   addUser(@Body() user: User) {
+    if (!isUser(user)) {
+      return new HttpException('Invalid input', 405)
+    }
+
     return user
   } 
 }
@@ -49,4 +53,11 @@ function isLike(obj: any): obj is Like {
   }
   
   return obj && typeof cat_id === 'string' 
+}
+
+function isUser(obj: any): obj is Like {
+  const { login } = obj
+  const { password } = obj
+
+  return obj && typeof password === 'string' && typeof login === 'string' 
 }
