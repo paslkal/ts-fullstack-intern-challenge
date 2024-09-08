@@ -28,7 +28,7 @@ export class AppController {
   }
 
   @HttpCode(200)
-  @Delete('/likes/:cat_id')
+  @Delete('likes/:cat_id')
   deleteLike(@Param('cat_id') cat_id: string) {
     return cat_id
   }
