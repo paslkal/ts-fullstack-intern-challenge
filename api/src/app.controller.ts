@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, HttpException, HttpCode, Delete, Param } from '@nestjs/common';
 import { AppService } from './app.service';
-import { Like } from './types';
+import { Like } from './interfaces/like.interface';
 
 @Controller()
 export class AppController {
@@ -26,6 +26,7 @@ export class AppController {
     return like
   }
 
+  @HttpCode(200)
   @Delete('/likes/:cat_id')
   deleteLike(@Param('cat_id') cat_id: string) {
     return cat_id

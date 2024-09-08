@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Like } from './types';
+import { Like } from './interfaces/like.interface';
 
 @Injectable()
 export class AppService {
@@ -17,6 +17,6 @@ export class AppService {
   }
 
   addLike() {
-    
+
   }
 }
