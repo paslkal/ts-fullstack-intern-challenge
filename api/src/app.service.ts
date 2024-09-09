@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Like } from './interfaces/like.interface.js';
+import { cat } from './interfaces/cat.interface.js';
 
 @Injectable()
 export class AppService {
@@ -7,7 +7,7 @@ export class AppService {
     return 'Hello World!';
   }
 
-  getLikes(): Like[]{
+  getLikes(): cat[]{
     return [
       {
         cat_id: 'asu7as',

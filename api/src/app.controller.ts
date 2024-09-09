@@ -1,7 +1,8 @@
 import { Controller, Get, Post, Body, HttpException, HttpCode, Delete, Param } from '@nestjs/common';
 import { AppService } from './app.service.js';
-import { Like } from './interfaces/like.interface.js';
+import { cat } from './interfaces/cat.interface.js';
 import { User } from './interfaces/user.interface.js'; 
+import { Cats } from './cast/cats.entity.js';
 
 @Controller()
 export class AppController {
@@ -20,11 +21,16 @@ export class AppController {
 
   @HttpCode(201)
   @Post('likes')
-  addLike(@Body() like: Like) {
-    if (!isLike(like)) {
+  addLike(@Body() cat: cat) {
+    if (!isCat(cat)) {
       throw new HttpException('Invalid Input', 405)
     }
-    return like
+
+    const newCat = new Cats()
+
+    newCat.cat_id = cat['cat_id']
+
+    return newCat
   }
 
   @HttpCode(200)
@@ -44,7 +50,7 @@ export class AppController {
   } 
 }
 
-function isLike(obj: any): obj is Like {
+function isCat(obj: any): obj is cat {
   const {created_at} = obj
   const {cat_id} = obj
 
@@ -55,7 +61,7 @@ function isLike(obj: any): obj is Like {
   return obj && typeof cat_id === 'string' 
 }
 
-function isUser(obj: any): obj is Like {
+function isUser(obj: any): obj is cat {
   const { login } = obj
   const { password } = obj
 
