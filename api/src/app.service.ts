@@ -18,13 +18,9 @@ export class AppService {
     return 'Hello World!';
   }
 
-  getLikes(): cat[]{
-    return [
-      {
-        cat_id: 'asu7as',
-        created_at: '2024-03-20T09:12:28Z'
-      }
-    ]
+  getLikes() {
+    const allCats = this.catsRepository.find()
+    return allCats
   }
 
   addLike(inputCat: cat) {
