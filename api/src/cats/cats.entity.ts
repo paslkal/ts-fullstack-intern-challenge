@@ -1,4 +1,5 @@
-import { CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import { Users } from "../users/users.entity.js";
+import { CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 
 @Entity({name: 'cats'})
 export class Cats {
@@ -7,4 +8,8 @@ export class Cats {
 
   @CreateDateColumn({type: 'timestamp'})
   created_at: Date
+
+  @ManyToOne(() => Users, user => user.cats)
+  @JoinColumn({name: 'user_id'})
+  user: Users
 }

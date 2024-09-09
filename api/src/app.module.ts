@@ -3,6 +3,7 @@ import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cats } from './cats/cats.entity.js';
+import { Users } from './users/users.entity.js';
 
 @Module({
   imports: [
@@ -13,11 +14,11 @@ import { Cats } from './cats/cats.entity.js';
       username: 'postgres',
       password: '1',
       database: 'support_lk_db',
-      entities: [Cats],
+      entities: [Cats, Users],
       synchronize: true
     }),
 
-    TypeOrmModule.forFeature([Cats])
+    TypeOrmModule.forFeature([Cats, Users])
   ],
   controllers: [AppController],
   providers: [AppService],
