@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
-import { Cat } from './interfaces/cat.interface.js';
+import { CatInterface } from './interfaces/cat.interface.js';
 import { HttpException } from '@nestjs/common';
-import { Cats } from './cats/cats.entity.js';
+import { Cat } from './cats/cats.entity.js';
 import { InjectRepository } from '@nestjs/typeorm';
 import isCat from './utils/isCat.js';
 import { Repository } from 'typeorm';
-import { user } from './interfaces/user.interface.js';
+import { UserInterface } from './interfaces/user.interface.js';
 import isUser from './utils/isUser.js';
 
 @Injectable()
 export class AppService {
 
   constructor(
-    @InjectRepository(Cats)
-    private catsRepository: Repository<Cats>
+    @InjectRepository(Cat)
+    private catsRepository: Repository<Cat>
   ) {}
 
   getLikes() {
@@ -21,12 +21,12 @@ export class AppService {
     return allCats
   }
 
-  addLike(inputCat: Cat) {
+  addLike(inputCat: CatInterface) {
     if (!isCat(inputCat)) {
       throw new HttpException('Invalid Input', 405)
     }
 
-    const newCat = new Cats()
+    const newCat = new Cat()
 
     newCat.cat_id = inputCat.cat_id
 
@@ -45,7 +45,7 @@ export class AppService {
     return 'Successful operation'
   }
 
-  createUser(user: user) {
+  createUser(user: UserInterface) {
     if (!isUser(user)) {
       return new HttpException('Invalid input', 405)
     }

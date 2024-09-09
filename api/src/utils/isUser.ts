@@ -1,6 +1,6 @@
-import { user } from "src/interfaces/user.interface.js"
+import { UserInterface } from "src/interfaces/user.interface.js"
 
-export default function isUser(obj: any): obj is user {
+export default function isUser(obj: any): obj is UserInterface {
   const { login } = obj
   const { password } = obj
 

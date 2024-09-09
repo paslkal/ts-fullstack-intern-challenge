@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, HttpException, HttpCode, Delete, Param } from '@nestjs/common';
 import { AppService } from './app.service.js';
-import { Cat } from './interfaces/cat.interface.js';
-import { user } from './interfaces/user.interface.js'; 
+import { CatInterface } from './interfaces/cat.interface.js';
+import { UserInterface } from './interfaces/user.interface.js'; 
 
 @Controller()
 export class AppController {
@@ -15,7 +15,7 @@ export class AppController {
 
   @HttpCode(201)
   @Post('likes')
-  addLike(@Body() cat: Cat) {
+  addLike(@Body() cat: CatInterface) {
     return this.appService.addLike(cat)
   }
 
@@ -27,7 +27,7 @@ export class AppController {
 
   @HttpCode(201)
   @Post('user') 
-  addUser(@Body() user: user) {
+  addUser(@Body() user: UserInterface) {
     this.appService.createUser(user)
   } 
 }
