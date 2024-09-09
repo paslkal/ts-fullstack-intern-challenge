@@ -22,15 +22,7 @@ export class AppController {
   @HttpCode(201)
   @Post('likes')
   addLike(@Body() cat: cat) {
-    if (!isCat(cat)) {
-      throw new HttpException('Invalid Input', 405)
-    }
-
-    const newCat = new Cats()
-
-    newCat.cat_id = cat['cat_id']
-
-    return newCat
+    return this.appService.addLike(cat)
   }
 
   @HttpCode(200)
@@ -48,17 +40,6 @@ export class AppController {
 
     return user
   } 
-}
-
-function isCat(obj: any): obj is cat {
-  const {created_at} = obj
-  const {cat_id} = obj
-
-  if (created_at) {
-    return obj && typeof cat_id === 'string' && typeof created_at === 'string' 
-  }
-  
-  return obj && typeof cat_id === 'string' 
 }
 
 function isUser(obj: any): obj is cat {
