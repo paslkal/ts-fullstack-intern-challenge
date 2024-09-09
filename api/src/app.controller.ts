@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, HttpException, HttpCode, Delete, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpCode, Delete, Param } from '@nestjs/common';
 import { AppService } from './app.service.js';
 import { CatInterface } from './interfaces/cat.interface.js';
 import { UserInterface } from './interfaces/user.interface.js'; 

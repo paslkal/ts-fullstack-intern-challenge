@@ -14,33 +14,35 @@ export class AppService {
 
   constructor(
     @InjectRepository(Cat)
-    private catsRepository: Repository<Cat>,
+    private catRepository: Repository<Cat>,
 
     @InjectRepository(User)
-    private usersRepository: Repository<User>
+    private userRepository: Repository<User>
   ) {}
 
   getLikes() {
-    const allCats = this.catsRepository.find()
+    const allCats = this.catRepository.find()
     return allCats
   }
 
-  addLike(inputCat: CatInterface) {
-    if (!isCat(inputCat)) {
+  addLike(cat: CatInterface) {
+    if (!isCat(cat)) {
       throw new HttpException('Invalid Input', 405)
     }
 
+    const {cat_id} = cat
+
     const newCat = new Cat()
 
-    newCat.cat_id = inputCat.cat_id
+    newCat.cat_id = cat_id
 
-    this.catsRepository.save(newCat)
+    this.catRepository.save(newCat)
 
     return newCat
   }
 
   async deleteLike(cat_id: string) {
-    const {affected} = await this.catsRepository.delete(cat_id)
+    const {affected} = await this.catRepository.delete(cat_id)
 
     if (affected === 0) {
       throw new HttpException('Like not found', 404)
@@ -54,12 +56,15 @@ export class AppService {
       return new HttpException('Invalid input', 405)
     }
 
+    const {login} = user
+    const {password} = user
+
     const newUser = new User()
 
-    newUser.login = user.login
-    newUser.password = user.password
+    newUser.login = login
+    newUser.password = password
 
-    const resultUser = await this.usersRepository.save(newUser)
+    const resultUser = await this.userRepository.save(newUser)
 
     return resultUser
   }
