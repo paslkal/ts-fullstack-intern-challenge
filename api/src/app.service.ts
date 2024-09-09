@@ -32,4 +32,14 @@ export class AppService {
 
     return newCat
   }
+
+  async deleteLike(cat_id: string) {
+    const {affected} = await this.catsRepository.delete(cat_id)
+
+    if (affected === 0) {
+      throw new HttpException('Like not found', 404)
+    }
+
+    return 'Successful operation'
+  }
 }

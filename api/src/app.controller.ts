@@ -2,7 +2,6 @@ import { Controller, Get, Post, Body, HttpException, HttpCode, Delete, Param } f
 import { AppService } from './app.service.js';
 import { cat } from './interfaces/cat.interface.js';
 import { User } from './interfaces/user.interface.js'; 
-import { Cats } from './cast/cats.entity.js';
 
 @Controller()
 export class AppController {
@@ -23,7 +22,7 @@ export class AppController {
   @HttpCode(200)
   @Delete('likes/:cat_id')
   deleteLike(@Param('cat_id') cat_id: string) {
-    return cat_id
+    return this.appService.deleteLike(cat_id)
   }
 
   @HttpCode(201)
