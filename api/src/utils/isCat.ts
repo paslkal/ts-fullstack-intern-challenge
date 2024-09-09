@@ -1,6 +1,6 @@
-import { cat } from "src/interfaces/cat.interface.js"
+import { Cat } from "src/interfaces/cat.interface.js"
 
-export default function isCat(obj: any): obj is cat {
+export default function isCat(obj: any): obj is Cat {
   const {created_at} = obj
   const {cat_id} = obj
 

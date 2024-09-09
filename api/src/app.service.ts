@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { cat } from './interfaces/cat.interface.js';
+import { Cat } from './interfaces/cat.interface.js';
 import { HttpException } from '@nestjs/common';
 import { Cats } from './cats/cats.entity.js';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -21,7 +21,7 @@ export class AppService {
     return allCats
   }
 
-  addLike(inputCat: cat) {
+  addLike(inputCat: Cat) {
     if (!isCat(inputCat)) {
       throw new HttpException('Invalid Input', 405)
     }
