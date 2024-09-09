@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, HttpException, HttpCode, Delete, Param } from '@nestjs/common';
-import { AppService } from './app.service';
-import { Like } from './interfaces/like.interface';
-import { User } from './interfaces/user.interface'; 
+import { AppService } from './app.service.js';
+import { Like } from './interfaces/like.interface.js';
+import { User } from './interfaces/user.interface.js'; 
 
 @Controller()
 export class AppController {

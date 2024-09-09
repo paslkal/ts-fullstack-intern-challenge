@@ -1,9 +1,22 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { AppController } from './app.controller.js';
+import { AppService } from './app.service.js';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Cats } from './cast/cats.entity.js';
 
 @Module({
-  imports: [],
+  imports: [
+    TypeOrmModule.forRoot({
+      type:'postgres',
+      host: '127.0.0.1',
+      port: 5432,
+      username: 'postgres',
+      password: '1',
+      database: 'support_lk_db',
+      entities: [Cats],
+      synchronize: true
+    })
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
