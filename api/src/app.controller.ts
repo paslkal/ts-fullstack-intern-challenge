@@ -28,6 +28,6 @@ export class AppController {
   @HttpCode(201)
   @Post('user') 
   addUser(@Body() user: UserInterface) {
-    this.appService.createUser(user)
+    return this.appService.createUser(user)
   } 
 }

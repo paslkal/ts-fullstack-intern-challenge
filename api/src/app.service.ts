@@ -7,13 +7,17 @@ import isCat from './utils/isCat.js';
 import { Repository } from 'typeorm';
 import { UserInterface } from './interfaces/user.interface.js';
 import isUser from './utils/isUser.js';
+import { User } from './users/users.entity.js';
 
 @Injectable()
 export class AppService {
 
   constructor(
     @InjectRepository(Cat)
-    private catsRepository: Repository<Cat>
+    private catsRepository: Repository<Cat>,
+
+    @InjectRepository(User)
+    private usersRepository: Repository<User>
   ) {}
 
   getLikes() {
@@ -45,11 +49,18 @@ export class AppService {
     return 'Successful operation'
   }
 
-  createUser(user: UserInterface) {
+  async createUser(user: UserInterface) {
     if (!isUser(user)) {
       return new HttpException('Invalid input', 405)
     }
 
-    return user
+    const newUser = new User()
+
+    newUser.login = user.login
+    newUser.password = user.password
+
+    const resultUser = await this.usersRepository.save(newUser)
+
+    return resultUser
   }
 }
