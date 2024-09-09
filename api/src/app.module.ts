@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Cats } from './cast/cats.entity.js';
+import { Cats } from './cats/cats.entity.js';
 
 @Module({
   imports: [

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { cat } from './interfaces/cat.interface.js';
 import { HttpException } from '@nestjs/common';
-import { Cats } from './cast/cats.entity.js';
+import { Cats } from './cats/cats.entity.js';
 import { InjectRepository } from '@nestjs/typeorm';
 import isCat from './utils/isCat.js';
 import { Repository } from 'typeorm';
