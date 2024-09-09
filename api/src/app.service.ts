@@ -5,6 +5,8 @@ import { Cats } from './cast/cats.entity.js';
 import { InjectRepository } from '@nestjs/typeorm';
 import isCat from './utils/isCat.js';
 import { Repository } from 'typeorm';
+import { user } from './interfaces/user.interface.js';
+import isUser from './utils/isUser.js';
 
 @Injectable()
 export class AppService {
@@ -41,5 +43,13 @@ export class AppService {
     }
 
     return 'Successful operation'
+  }
+
+  createUser(user: user) {
+    if (!isUser(user)) {
+      return new HttpException('Invalid input', 405)
+    }
+
+    return user
   }
 }

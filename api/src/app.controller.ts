@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, HttpException, HttpCode, Delete, Param } from '@nestjs/common';
 import { AppService } from './app.service.js';
 import { cat } from './interfaces/cat.interface.js';
-import { User } from './interfaces/user.interface.js'; 
+import { user } from './interfaces/user.interface.js'; 
 
 @Controller()
 export class AppController {
@@ -27,18 +27,7 @@ export class AppController {
 
   @HttpCode(201)
   @Post('user') 
-  addUser(@Body() user: User) {
-    if (!isUser(user)) {
-      return new HttpException('Invalid input', 405)
-    }
-
-    return user
+  addUser(@Body() user: user) {
+    this.appService.createUser(user)
   } 
-}
-
-function isUser(obj: any): obj is cat {
-  const { login } = obj
-  const { password } = obj
-
-  return obj && typeof password === 'string' && typeof login === 'string' 
 }
