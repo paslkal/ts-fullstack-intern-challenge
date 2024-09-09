@@ -14,10 +14,6 @@ export class AppService {
     private catsRepository: Repository<Cats>
   ) {}
 
-  getHello(): string {
-    return 'Hello World!';
-  }
-
   getLikes() {
     const allCats = this.catsRepository.find()
     return allCats
