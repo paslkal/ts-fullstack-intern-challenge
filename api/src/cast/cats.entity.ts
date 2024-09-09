@@ -1,10 +1,10 @@
-import { CreateDateColumn, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
 
 @Entity({name: 'cats'})
 export class Cats {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   cat_id: string
 
-  @CreateDateColumn()
-  createdAt: Date
+  @CreateDateColumn({type: 'timestamp'})
+  created_at: Date
 }

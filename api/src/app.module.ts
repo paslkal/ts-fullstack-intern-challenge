@@ -15,7 +15,9 @@ import { Cats } from './cast/cats.entity.js';
       database: 'support_lk_db',
       entities: [Cats],
       synchronize: true
-    })
+    }),
+
+    TypeOrmModule.forFeature([Cats])
   ],
   controllers: [AppController],
   providers: [AppService],
