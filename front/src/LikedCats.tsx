@@ -52,7 +52,7 @@ export default function LikedCats() {
           headers: {"Content-Type": "application/json"}
         })
   
-        changeLike(catId, true)
+        changeLike(catId)
 
       } catch (error) {
         console.error(error)
@@ -61,17 +61,17 @@ export default function LikedCats() {
       try {
         fetch(`${backendURL}/likes/${catId}`, {method: 'DELETE'})
         
-        changeLike(catId, false)
+        changeLike(catId)
       } catch (error) {
         console.error(error);
       }      
     }
   }
 
-  const changeLike = (catId: string, isLiked: boolean) => {
+  const changeLike = (catId: string) => {
     const changedCats = cats.map(cat => {
       if (cat.id === catId) {
-        return {...cat, isLiked: isLiked}
+        return {...cat, isLiked: !cat.isLiked}
       }
 
       return cat
