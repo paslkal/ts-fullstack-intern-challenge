@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import './styles/Cats.css'
 import heart from './assets/heart.svg'
 import Cat from "./interfaces/cat.interface"
-import { catAPIUrl } from "./url"
+import { backendURL, catAPIUrl } from "./url"
 
 export default function Cats() {
   const [cats, setCats] = useState<Cat[]>([])
@@ -23,6 +23,20 @@ export default function Cats() {
     fetchData()
   }, [])
 
+  const handleClick = (cat_id: string) => {
+    try {
+      fetch(`${backendURL}/likes`, {
+        method: 'POST',
+        body: JSON.stringify({cat_id}),
+        headers: {"Content-Type": "application/json"}
+      })
+
+      console.log('click')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <main>
       <div className="cats-grid">
@@ -33,7 +47,12 @@ export default function Cats() {
             return(
               <div className="cat-container" key={cat.id}>
                 <img src={url} alt="cat" className="cat-image"/>
-                <img src={heart} alt="heart" className="heart-image"/>
+                <img 
+                  src={heart} 
+                  alt="heart" 
+                  className="heart-image"
+                  onClick={() => handleClick(cat.id)}
+                />
               </div>
             )
           })
