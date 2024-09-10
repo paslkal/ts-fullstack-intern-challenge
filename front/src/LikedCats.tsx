@@ -3,6 +3,8 @@ import heart from './assets/heart.svg'
 import './styles/Cats.css'
 import CatInfo from './interfaces/catInfo.interface'
 import Cat from './interfaces/cat.interface'
+import { backendURL } from './url'
+import { catAPIUrl } from './url'
 
 export default function LikedCats() {
   const [cats, setCats] = useState<Cat[]>([])
@@ -10,15 +12,14 @@ export default function LikedCats() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = 'http://localhost:3000/likes'
-        const response = await fetch(url)
+        const response = await fetch(`${backendURL}/likes`)
   
         const fetchedData: CatInfo[] = await response.json()
 
         const catsPromises = fetchedData.map(async (catInfo): Promise<Cat> => {
           const {cat_id} = catInfo
 
-          const response = await fetch(`https://api.thecatapi.com/v1/images/${cat_id}`) 
+          const response = await fetch(`${catAPIUrl}/${cat_id}`) 
 
           const cat: Cat = await response.json()
 
@@ -44,7 +45,7 @@ export default function LikedCats() {
             const {url} = cat
 
             return(
-              <div className="cat-container">
+              <div className="cat-container" key={cat.id}>
                 <img src={url} alt="cat" className="cat-image"/>
                 <img src={heart} alt="heart" className="heart-image"/>
               </div>
