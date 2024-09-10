@@ -93,13 +93,16 @@ export default function LikedCats() {
             const {url} = cat
 
             return(
-              <div className="cat-container" key={cat.id}>
+              <div 
+                className="cat-container" 
+                key={cat.id}
+                onClick={() => handleClick(cat.id)}  
+              >
                 <img src={url} alt="cat" className="cat-image"/>
                 <img 
                   src={cat.isLiked ? clickedHeart : heart} 
                   alt="heart" 
                   className="heart-image"
-                  onClick={() => handleClick(cat.id)}
                 />
               </div>
             )
