@@ -5,7 +5,11 @@ import { Link } from "react-router-dom"
 type active = 'all-cats' | 'liked-cats'
 
 export default function Header() {
-  const [active, setActive] = useState<active>('all-cats')
+  const {pathname} = window.location
+
+  const initialActive = pathname === '' ? 'all-cats' : 'liked-cats'
+
+  const [active, setActive] = useState<active>(initialActive)
 
   const handleClick = (newActive: active) => {
     setActive(newActive)
