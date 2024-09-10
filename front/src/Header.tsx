@@ -7,7 +7,7 @@ type active = 'all-cats' | 'liked-cats'
 export default function Header() {
   const {pathname} = window.location
 
-  const initialActive = pathname === '' ? 'all-cats' : 'liked-cats'
+  const initialActive = pathname === '/' ? 'all-cats' : 'liked-cats'
 
   const [active, setActive] = useState<active>(initialActive)
 
