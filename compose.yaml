@@ -28,6 +28,8 @@ services:
     depends_on:
       cat-pinterest-api-pg:
         condition: service_healthy
+    ports:
+    - "3000:3000"
 
   cat-pinterest-front:
     container_name: cat-pinterest-front
