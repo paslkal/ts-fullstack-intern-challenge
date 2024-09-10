@@ -9,7 +9,7 @@ import { User } from './users/users.entity.js';
   imports: [
     TypeOrmModule.forRoot({
       type:'postgres',
-      host: '127.0.0.1',
+      host: 'cat-pinterest-api-pg',
       port: 5432,
       username: 'postgres',
       password: '1',
