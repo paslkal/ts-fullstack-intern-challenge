@@ -35,8 +35,6 @@ export default function Cats() {
     const cat = cats.find(cat => cat.id === catId)
     
     if (!cat?.isLiked) {
-      console.log(cat)
-
       try {
         fetch(`${backendURL}/likes`, {
           method: 'POST',
@@ -56,11 +54,8 @@ export default function Cats() {
         changeLike(catId, false)
       } catch (error) {
         console.error(error);
-      }
-      
-      console.log('click')
+      }      
     }
-    
   }
 
   const changeLike = (catId: string, isLiked: boolean) => {

@@ -3,11 +3,13 @@ import heart from './assets/heart.svg'
 import './styles/Cats.css'
 import CatInfo from './interfaces/catInfo.interface'
 import Cat from './interfaces/cat.interface'
+import NewCat from './interfaces/newCat.interface'
+import clickedHeart from './assets/clicked-heart.svg'
 import { backendURL } from './url'
 import { catAPIUrl } from './url'
 
 export default function LikedCats() {
-  const [cats, setCats] = useState<Cat[]>([])
+  const [cats, setCats] = useState<NewCat[]>([])
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,14 +18,16 @@ export default function LikedCats() {
   
         const fetchedData: CatInfo[] = await response.json()
 
-        const catsPromises = fetchedData.map(async (catInfo): Promise<Cat> => {
+        const catsPromises = fetchedData.map(async (catInfo) => {
           const {cat_id} = catInfo
 
           const response = await fetch(`${catAPIUrl}/${cat_id}`) 
 
           const cat: Cat = await response.json()
 
-          return cat
+          const newCat: NewCat = {...cat, isLiked: true} 
+
+          return newCat
         })
   
         const fetchedCats = await Promise.all(catsPromises)
@@ -37,6 +41,46 @@ export default function LikedCats() {
     fetchData()
   }, [])
 
+  const handleClick = (catId: string) => {
+    const cat = cats.find(cat => cat.id === catId)
+    
+    if (!cat?.isLiked) {
+      try {
+        fetch(`${backendURL}/likes`, {
+          method: 'POST',
+          body: JSON.stringify({cat_id: catId}),
+          headers: {"Content-Type": "application/json"}
+        })
+  
+        changeLike(catId, true)
+
+      } catch (error) {
+        console.error(error)
+      }
+    } else {
+      try {
+        fetch(`${backendURL}/likes/${catId}`, {method: 'DELETE'})
+        
+        changeLike(catId, false)
+      } catch (error) {
+        console.error(error);
+      }      
+    }
+  }
+
+  const changeLike = (catId: string, isLiked: boolean) => {
+    const changedCats = cats.map(cat => {
+      if (cat.id === catId) {
+        return {...cat, isLiked: isLiked}
+      }
+
+      return cat
+    })
+
+    setCats(changedCats)
+  }
+
+
   return (
     <main>
       <div className="cats-grid">
@@ -47,7 +91,12 @@ export default function LikedCats() {
             return(
               <div className="cat-container" key={cat.id}>
                 <img src={url} alt="cat" className="cat-image"/>
-                <img src={heart} alt="heart" className="heart-image"/>
+                <img 
+                  src={cat.isLiked ? clickedHeart : heart} 
+                  alt="heart" 
+                  className="heart-image"
+                  onClick={() => handleClick(cat.id)}
+                />
               </div>
             )
           })
