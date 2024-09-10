@@ -5,9 +5,11 @@ import Cat from "./interfaces/cat.interface"
 import { backendURL, catAPIUrl } from "./url"
 import NewCat from "./interfaces/newCat.interface"
 import clickedHeart from './assets/clicked-heart.svg'
+import hoveredHeart from './assets/hovered-heart.svg'
 
 export default function Cats() {
   const [cats, setCats] = useState<NewCat[]>([])
+  const [isHover, setIsHover] = useState(false)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -80,15 +82,21 @@ export default function Cats() {
         {
           cats.map((cat) => {
             const {url} = cat
+            let src = isHover ? hoveredHeart : (cat.isLiked ? clickedHeart : heart) 
 
             return(
-              <div className="cat-container" key={cat.id}>
+              <div 
+                className="cat-container" 
+                key={cat.id} 
+                onClick={() => handleClick(cat.id)}
+              >
                 <img src={url} alt="cat" className="cat-image"/>
                 <img 
-                  src={cat.isLiked ? clickedHeart : heart} 
+                  src={src} 
                   alt="heart" 
                   className="heart-image"
-                  onClick={() => handleClick(cat.id)}
+                  onMouseOver={() => setIsHover(true)}
+                  onMouseOut={() => setIsHover(false)}
                 />
               </div>
             )
