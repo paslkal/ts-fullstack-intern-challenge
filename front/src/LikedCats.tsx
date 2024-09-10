@@ -41,17 +41,19 @@ export default function LikedCats() {
     fetchData()
   }, [])
 
-  const handleClick = (catId: string) => {
+  const handleClick = async (catId: string) => {
     const cat = cats.find(cat => cat.id === catId)
     
     if (!cat?.isLiked) {
       try {
-        fetch(`${backendURL}/likes`, {
+        const response = await fetch(`${backendURL}/likes`, {
           method: 'POST',
           body: JSON.stringify({cat_id: catId}),
           headers: {"Content-Type": "application/json"}
         })
   
+        if (!response.ok) return
+
         changeLike(catId)
 
       } catch (error) {
@@ -59,8 +61,10 @@ export default function LikedCats() {
       }
     } else {
       try {
-        fetch(`${backendURL}/likes/${catId}`, {method: 'DELETE'})
+        const response = await fetch(`${backendURL}/likes/${catId}`, {method: 'DELETE'})
         
+        if (!response.ok) return
+
         changeLike(catId)
       } catch (error) {
         console.error(error);
